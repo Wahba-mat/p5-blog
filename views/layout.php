@@ -38,9 +38,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?p=list">Articles</a>
                     </li>
+                    <?php if(!$this->isConnected()): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?p=add">Ajouter</a>
+                        <a class="nav-link" href="index.php?p=login">Se connecter</a>
                     </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?p=register">S'inscrire</a>
+                        </li>
+                    <?php else: ?>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?p=admin">Gestions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?p=logout">Se déconnecter</a>
+                        </li>
+
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -64,6 +78,12 @@
     
     <!-- Content -->
     <div class="container">
+        <?php if(isset($_SESSION['flash'])):?>
+            <div class="alert alert-<?= $_SESSION['flash']['type']?>" role="alert">
+                <?= $_SESSION['flash']['message']?>
+            </div>
+        <?php unset($_SESSION['flash']); ?>
+        <?php endif;?>
         <?= $content ?>
     </div>
     
@@ -88,6 +108,15 @@
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a href="index.php?p=admin" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-tasks fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>

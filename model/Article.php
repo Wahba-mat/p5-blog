@@ -1,6 +1,5 @@
 <?php
 
-require_once 'model/ArticleManager.php';
 
 class Article
 {
@@ -12,7 +11,8 @@ class Article
     private $author;
     private $created;
     private $updated;
-    
+    private $comments;
+
     public function __construct($datas = [])
     {
         if (!empty($datas))
@@ -35,6 +35,11 @@ class Article
     }
     
     // Getters and Setters
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -70,6 +75,10 @@ class Article
         return $this->content;
     }
     
+    public function setComments($comments)
+    {
+       $this->comments = $comments;
+    }
     public function setContent($content)
     {
         $this->content = $content;

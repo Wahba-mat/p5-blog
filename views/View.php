@@ -1,10 +1,11 @@
 <?php
 
-class View {
+class View
+{
 
     // Nom du fichier associé à la vue
     private $file;
-    
+
     // Titre de la vue (défini dans le fichier view)
     private $title;
     private $header;
@@ -24,13 +25,13 @@ class View {
         $content = $this->generateFile($this->file, $datas);
         // Génération du gabarit commun utilisant la partie spécifique
         $view = $this->generateFile('views/layout.php',
-        array(
-            'title' => $this->title,
-            'header' => $this->header,
-            'subheader' => $this->subheader,
-            'button' => $this->button,
-            'content' => $content
-          ));
+            array(
+                'title' => $this->title,
+                'header' => $this->header,
+                'subheader' => $this->subheader,
+                'button' => $this->button,
+                'content' => $content
+            ));
         // Renvoi de la vue au navigateur
         echo $view;
     }
@@ -38,8 +39,7 @@ class View {
     // Génère un fichier vue et renvoie le résultat produit
     private function generateFile($file, $datas)
     {
-        if (file_exists($file))
-        {
+        if (file_exists($file)) {
             // Rend les éléments du tableau $datas accessibles dans la vue
             extract($datas);
             // Démarrage de la temporisation de sortie
@@ -49,15 +49,19 @@ class View {
             require $file;
             // Arrêt de la temporisation et renvoi du tampon de sortie
             return ob_get_clean();
-        }
-        else
-        {
+        } else {
             throw new Exception("Fichier '$file' introuvable");
         }
     }
-	
-	private function clean($data)
-	{
-		return htmlspecialchars($data, ENT_QUOTES, 'UTF-8', false);
-	}
+
+    // Nettoie une valeur inséree dans une page HTML
+    private function clean($data)
+    {
+        return htmlspecialchars($data, ENT_QUOTES, 'UTF-8', false);
+    }
+
+    private function isConnected(): bool
+    {
+        return isset($_SESSION['loggedin']);
+    }
 }
